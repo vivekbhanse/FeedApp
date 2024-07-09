@@ -6,7 +6,7 @@
     <data>
         <variable
             name="model"
-            type="com.example.myvote.data.PrimaryDetails" />
+            type="com.example.myvote.data.dto.PrimaryDetails" />
 
     </data>
 
@@ -32,10 +32,11 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
 
-                android:src="@drawable/bird" />
+                android:src="@drawable/img_bird" />
 
             <!-- Email Input -->
             <EditText
+                android:background="@drawable/et_cust"
                 android:id="@+id/usename"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -46,6 +47,7 @@
 
             <!-- Password Input -->
             <EditText
+                android:background="@drawable/et_cust"
                 android:id="@+id/password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -58,6 +60,7 @@
 
             <EditText
                 android:id="@+id/email"
+                android:background="@drawable/et_cust"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Email ID"
@@ -68,6 +71,7 @@
 
             <EditText
                 android:id="@+id/phone"
+                android:background="@drawable/et_cust"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Phone NO"

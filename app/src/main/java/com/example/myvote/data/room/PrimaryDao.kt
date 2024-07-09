@@ -1,12 +1,13 @@
-package com.example.myvote.domain.room
+package com.example.myvote.data.room
 
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.example.myvote.data.PostDetails
-import com.example.myvote.data.PrimaryDetails
+import com.example.myvote.data.dto.PostDetails
+import com.example.myvote.data.dto.PrimaryDetails
+
 @Dao
 interface PrimaryDao {
 
@@ -32,7 +33,10 @@ interface PrimaryDao {
     suspend fun insertAllPost(post: List<PostDetails>)
 
     @Query("delete from postDetails WHERE id=:id")
-    suspend fun deletePost2(id:String)
+    suspend fun deletePost2(id: String)
+
+    @Query("UPDATE postDetails SET post=:postText,date=:date WHERE id = :id")
+    fun updatePost(postText: String?, id: String, date: String)
 
     @Delete
     suspend fun deletePost(post: PostDetails)

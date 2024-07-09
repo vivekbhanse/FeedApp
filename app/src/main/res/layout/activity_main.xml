@@ -17,37 +17,39 @@
 
         <!-- Logo -->
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
             android:layout_gravity="center"
-
-            android:src="@drawable/bird" />
+            android:src="@drawable/img_bird" />
 
         <!-- Email Input -->
         <EditText
             android:id="@+id/username"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Username"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/et_cust"
+            android:hint="@string/username"
             android:inputType="text"
-            android:padding="8dp" />
+            android:padding="12dp" />
 
         <!-- Password Input -->
         <EditText
             android:id="@+id/password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Password"
             android:layout_marginTop="16dp"
+            android:background="@drawable/et_cust"
+            android:hint="@string/password"
             android:inputType="textPassword"
-            android:padding="8dp" />
+            android:padding="12dp" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
             android:gravity="center"
             android:orientation="horizontal"
-            android:paddingTop="16dp"
             android:weightSum="3">
             <!-- Login Button -->
             <Button
@@ -56,26 +58,25 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:padding="8dp"
-                android:text="Login" />
+                android:text="@string/login" />
 
             <Button
                 android:id="@+id/Register_button"
                 android:layout_width="0dp"
-                android:layout_marginLeft="16dp"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
                 android:layout_weight="1"
                 android:padding="8dp"
-                android:text="Register" />
+                android:text="@string/register" />
 
             <Button
                 android:id="@+id/admin_button"
                 android:layout_width="0dp"
-                android:layout_marginLeft="16dp"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
                 android:layout_weight="1"
                 android:padding="8dp"
-                android:text="Admin Login" />
-
+                android:text="@string/admin_login" />
 
 
         </LinearLayout>

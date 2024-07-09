@@ -1,13 +1,15 @@
 package com.example.myvote.presentation.viewmodels
 
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import com.example.myvote.data.PostDetails
-import com.example.myvote.data.PrimaryDetails
-import com.example.myvote.domain.room.AppDatabase
-import kotlinx.coroutines.launch
+import com.example.myvote.data.dto.PostDetails
+import com.example.myvote.data.room.AppDatabase
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-class ShowActivityModel:ViewModel() {
+@HiltViewModel
+class ShowActivityModel @Inject constructor() : ViewModel() {
+    @Inject
+    lateinit var databases: AppDatabase
 
     suspend fun checkPost(database: AppDatabase, usename: String): List<PostDetails> =
         database.PrimaryDao().readLoginPost(usename)
@@ -15,6 +17,9 @@ class ShowActivityModel:ViewModel() {
     suspend fun checkPostAll(database: AppDatabase): List<PostDetails> =
         database.PrimaryDao().readLoginPostAll()
 
-    suspend fun deletePost(database: AppDatabase,postId:String) =
+    suspend fun deletePost(database: AppDatabase, postId: String) =
         database.PrimaryDao().deletePost2(postId)
+
+    suspend fun updatePost(postId: String, postText: String, date: String) =
+        databases.PrimaryDao().updatePost(postId,postText,date)
 }
