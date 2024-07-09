@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">MyVote</string>
+
+    <string-array name="Roles">
+        <item>Select Role</item>
+        <item>Java</item>
+        <item>Kotlin</item>
+        <item>Swift</item>
+        <item>Python</item>
+        <item>Scala</item>
+        <item>Perl</item>
+    </string-array>
+</resources>

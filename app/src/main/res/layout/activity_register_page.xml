@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="model"
+            type="com.example.myvote.data.PrimaryDetails" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/main"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".presentation.ui.RegisterPage">
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <!-- Logo -->
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+
+                android:src="@drawable/bird" />
+
+            <!-- Email Input -->
+            <EditText
+                android:id="@+id/usename"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Username"
+                android:text="@{model.username}"
+                android:inputType="text"
+                android:padding="8dp" />
+
+            <!-- Password Input -->
+            <EditText
+                android:id="@+id/password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Password"
+                android:text="@{model.password}"
+                android:layout_marginTop="16dp"
+                android:inputType="textPassword"
+                android:padding="8dp" />
+
+
+            <EditText
+                android:id="@+id/email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Email ID"
+                android:text="@{model.email}"
+                android:layout_marginTop="16dp"
+                android:inputType="text"
+                android:padding="8dp" />
+
+            <EditText
+                android:id="@+id/phone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Phone NO"
+                android:maxLength="10"
+                android:layout_marginTop="16dp"
+                android:text="@{model.phone}"
+                android:inputType="phone"
+                android:padding="8dp" />
+
+            <Spinner
+                android:id="@+id/spinner_role"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:paddingTop="32dp"
+                android:weightSum="3">
+                <!-- Login Button -->
+                <Button
+                    android:id="@+id/btn_login"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:padding="8dp"
+                    android:text="Login" />
+
+                <Button
+                    android:id="@+id/btn_register"
+                    android:layout_width="0dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:padding="8dp"
+                    android:text="Register" />
+
+                <!-- Forgot Password and Sign Up Links -->
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
