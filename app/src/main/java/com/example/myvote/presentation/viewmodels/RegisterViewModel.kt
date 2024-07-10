@@ -13,7 +13,5 @@ class RegisterViewModel @Inject constructor() : ViewModel() {
 
     fun insertItem(database: AppDatabase, p: PrimaryDetails) = viewModelScope.launch {
         val addedID = database.PrimaryDao().insertAll(listOf(p))
-
-
     }
 }

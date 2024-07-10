@@ -37,7 +37,7 @@ class MainActivity @Inject constructor(
         setContentView(binding.root)
 
         binding.RegisterButton.setOnClickListener {
-            startActivity(Intent(this, RegisterPage::class.java))
+            startActivity(Intent(this, RegisterPageActivity::class.java))
         }
         binding.loginButton.setOnClickListener {
             val usename = binding.username.text.toString()
@@ -77,7 +77,7 @@ class MainActivity @Inject constructor(
     private suspend fun fetchData(usename: String, password: String): List<PrimaryDetails> {
         var result: List<PrimaryDetails> = emptyList()
         val waitFor = CoroutineScope(Dispatchers.IO).async {
-            listPrimary = viewModel.checkUser(database, usename, password)
+            listPrimary = viewModel.checkUser(usename, password)
             return@async result
         }
         waitFor.await()
@@ -88,7 +88,7 @@ class MainActivity @Inject constructor(
             editor.apply()
             editor.commit()
 
-            startActivity(Intent(this, FeedPage::class.java))
+            startActivity(Intent(this, FeedPageActivity::class.java))
         } else {
             runOnUiThread(Runnable {
                 Toast.makeText(this, "Invalid Details", Toast.LENGTH_LONG).show()

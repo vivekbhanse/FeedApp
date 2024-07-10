@@ -5,26 +5,27 @@ import android.content.SharedPreferences
 import android.os.Bundle
 import android.text.TextUtils
 import android.util.Patterns
+import android.view.View
+import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProviders
 import com.example.myvote.R
 import com.example.myvote.data.dto.PrimaryDetails
 import com.example.myvote.data.room.AppDatabase
 import com.example.myvote.databinding.ActivityRegisterPageBinding
-import com.example.myvote.presentation.viewmodels.FeedModel
 import com.example.myvote.presentation.viewmodels.RegisterViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 
 @AndroidEntryPoint
-class RegisterPage : AppCompatActivity() {
+class RegisterPageActivity : AppCompatActivity() {
     private lateinit var binding: ActivityRegisterPageBinding
 
-    private var spinnerValue: String = ""
+    private var spinnerValue = "Select Role"
+
     @Inject
     lateinit var database: AppDatabase
 
@@ -42,8 +43,6 @@ class RegisterPage : AppCompatActivity() {
             this, android.R.layout.simple_spinner_item, rolesValues
         )
         binding.spinnerRole.adapter = adapter
-
-
         binding.btnRegister.setOnClickListener {
             if (CheckAllFields()) {
                 val username = binding.usename.text.toString()
@@ -54,25 +53,35 @@ class RegisterPage : AppCompatActivity() {
                     database, PrimaryDetails(0, username, password, email, phone, spinnerValue)
                 )
                 startActivity(Intent(this, MainActivity::class.java))
-            }else{
-                Toast.makeText(this,"Fill Details",Toast.LENGTH_LONG).show()
+            } else {
+                Toast.makeText(this, "Fill Details", Toast.LENGTH_LONG).show()
             }
         }
+        binding.spinnerRole.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>,
+                view: View,
+                position: Int,
+                id: Long,
+            ) {
+                if (position != 0) {
+                    spinnerValue = rolesValues[position]
+                }
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>) {
+
+            }
+        }
+
         binding.btnLogin.setOnClickListener {
             startActivity(Intent(this, MainActivity::class.java))
         }
 
-//        viewModel.addedforDB.observe(this, Observer {
-//            if (it != null) {
-//                if (it>0) {
-//                    startActivity(Intent(this, FeedPage::class.java))
-//                }
-//            }
-//        })
     }
 
     private fun CheckAllFields(): Boolean {
-        binding.run {
+        with(binding) {
             if (usename.length() == 0) {
                 usename.error = "This field is required"
                 return false
@@ -89,24 +98,15 @@ class RegisterPage : AppCompatActivity() {
                 }
                 return isValidEmail
             }
-
-
             if (phone.length() < 9) {
                 phone.error = "Phone Should Be Valid"
                 return false
             }
-
-
-            if (spinnerRole.getSelectedItem() != "Select Role") {
-                spinnerValue = spinnerRole.getSelectedItem().toString()
-            } else {
-
+            if (spinnerValue.contains("Select Role")) {
                 return false
             }
         }
 
-
-        // after all validation return true.
         return true
     }
 

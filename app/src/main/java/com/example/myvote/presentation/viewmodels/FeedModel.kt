@@ -11,9 +11,14 @@ import javax.inject.Inject
 @HiltViewModel
 class FeedModel @Inject constructor() : ViewModel() {
 
-    fun insertFeed(database: AppDatabase, p: PostDetails) = viewModelScope.launch {
-        val addedID = database.PrimaryDao().insertAllPost(listOf(p))
+    @Inject
+    lateinit var databases: AppDatabase
 
+    fun insertFeed(postDetails: PostDetails) = viewModelScope.launch {
+        val addedID = databases.PrimaryDao().insertAllPost(listOf(postDetails))
+    }
 
+    fun updatePost(postId: String, postText: String, date: String) = viewModelScope.launch {
+        databases.PrimaryDao().updatePost(postId, postText, date)
     }
 }

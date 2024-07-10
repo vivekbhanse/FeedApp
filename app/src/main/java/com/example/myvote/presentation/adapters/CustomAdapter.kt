@@ -30,25 +30,25 @@ class CustomAdapter(
         holder.postText.text = "Post: ${item.post}"
         holder.date.text = "Post Date: ${item.date}"
 
+        holder.btn_Delete.setOnClickListener {
+            param.delateNote(item.id.toString())
+            deleteItem(position)
+        }
+        holder.btn_Update.setOnClickListener {
+            param.updateNote(item)
+
+        }
+
         when {
             username == item.username -> {
                 holder.postCreatedBy.text = "Created By: Own"
                 holder.btn_Delete.visibility = View.VISIBLE
                 holder.btn_Update.visibility = View.VISIBLE
 
-                holder.btn_Delete.setOnClickListener {
-                    param.delateNote(item.id.toString())
-                    deleteItem(position)
-                }
-                holder.btn_Update.setOnClickListener {
-                    param.updateNote(item)
-                   // deleteItem(position)
-                }
             }
 
             username == "Admin" -> {
                 holder.postCreatedBy.text = "Created By: ${item.username}"
-
             }
 
             else -> {

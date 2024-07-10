@@ -19,7 +19,4 @@ class ShowActivityModel @Inject constructor() : ViewModel() {
 
     suspend fun deletePost(database: AppDatabase, postId: String) =
         database.PrimaryDao().deletePost2(postId)
-
-    suspend fun updatePost(postId: String, postText: String, date: String) =
-        databases.PrimaryDao().updatePost(postId,postText,date)
 }

@@ -36,7 +36,7 @@ interface PrimaryDao {
     suspend fun deletePost2(id: String)
 
     @Query("UPDATE postDetails SET post=:postText,date=:date WHERE id = :id")
-    fun updatePost(postText: String?, id: String, date: String)
+    suspend fun updatePost(id: String ,postText: String?, date: String)
 
     @Delete
     suspend fun deletePost(post: PostDetails)

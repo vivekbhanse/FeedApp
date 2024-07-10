@@ -17,10 +17,10 @@
             android:name=".presentation.ui.ShowListActivity"
             android:exported="false" />
         <activity
-            android:name=".presentation.ui.FeedPage"
+            android:name=".presentation.ui.FeedPageActivity"
             android:exported="false" />
         <activity
-            android:name=".presentation.ui.RegisterPage"
+            android:name=".presentation.ui.RegisterPageActivity"
             android:exported="false" />
         <activity
             android:name=".presentation.ui.MainActivity"

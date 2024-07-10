@@ -14,7 +14,6 @@ import com.example.myvote.databinding.ActivityShowListBinding
 import com.example.myvote.presentation.adapters.CustomAdapter
 import com.example.myvote.presentation.viewmodels.ShowActivityModel
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.delay
@@ -27,7 +26,7 @@ import javax.inject.Inject
 class ShowListActivity : AppCompatActivity() {
     private lateinit var binding: ActivityShowListBinding
     var listPrimary = mutableListOf<PostDetails>()
-    private var sharedNameValue: String = ""
+    private var curruntProfile: String = ""
     private var profileName: String = ""
 
     @Inject
@@ -40,12 +39,12 @@ class ShowListActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityShowListBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        sharedNameValue = sharedPreferences.getString("usename", "defaultname").toString()
+        curruntProfile = sharedPreferences.getString("usename", "defaultname").toString()
         profileName = intent.getStringExtra("fromButton").toString()
 
         lifecycleScope.launch(Dispatchers.Main) {
             listPrimary = withContext(Dispatchers.Default) {
-                fetchData(sharedNameValue)
+                fetchData(curruntProfile)
             }
         }
 
@@ -53,7 +52,7 @@ class ShowListActivity : AppCompatActivity() {
     }
 
     private suspend fun fetchData(usename: String): MutableList<PostDetails> {
-        var result: List<PostDetails> = emptyList()
+        val result: List<PostDetails> = emptyList()
         val waitFor = lifecycleScope.async {
             delay(1000)
             if (profileName.equals("Vivek") || profileName.equals("Admin")) {
@@ -61,33 +60,34 @@ class ShowListActivity : AppCompatActivity() {
             } else {
                 listPrimary = viewModel.checkPost(database, usename).toMutableList()
             }
+            when (profileName) {
+                "Vivek", "Admin" -> listPrimary = viewModel.checkPostAll(database).toMutableList()
+                else ->
+                    listPrimary = viewModel.checkPost(database, usename).toMutableList()
+            }
         }
         waitFor.await()
 
         runOnUiThread(Runnable {
             if (listPrimary.size > 0) {
                 binding.recyclerview.layoutManager = LinearLayoutManager(this)
-                val adapter = CustomAdapter(listPrimary, sharedNameValue, object : ShowOperation {
+                val adapter = CustomAdapter(listPrimary, curruntProfile, object : ShowOperation {
                     override fun delateNote(postId: String) {
                         lifecycleScope.launch {
                             viewModel.deletePost(database, postId)
                         }
 
                     }
-
                     override fun updateNote(postDetails: PostDetails) {
 
-                        val intent = Intent(this@ShowListActivity, FeedPage::class.java)
+                        val intent = Intent(this@ShowListActivity, FeedPageActivity::class.java)
                         intent.putExtra("postParce", postDetails)
                         startActivity(intent)
 
                     }
-
-
                 })
                 binding.recyclerview.adapter = adapter
                 adapter.notifyDataSetChanged()
-
             } else {
                 Toast.makeText(this, "No Data", Toast.LENGTH_LONG).show()
             }
